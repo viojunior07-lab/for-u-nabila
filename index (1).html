@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>for u nabila</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#ffe6ec,#ffd6e8);
+      min-height:100vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#70364a;
+    }
+    .container{
+      background:rgba(255,255,255,0.9);
+      padding:40px;
+      border-radius:20px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.15);
+      text-align:center;
+      width:90%;
+      max-width:480px;
+      animation:fadeIn 1s ease;
+    }
+    h1{margin-bottom:10px;color:#ff5c8a;}
+    p{font-size:15px;line-height:1.6;}
+    input{
+      padding:10px;border-radius:8px;border:1px solid #ffb6c1;
+      outline:none;font-size:16px;text-align:center;
+    }
+    button{
+      margin-top:14px;background:#ff5c8a;color:white;border:none;
+      padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:600;
+      transition:all 0.3s ease;
+    }
+    button:hover{background:#ff7ca2;transform:scale(1.05);}
+    .hidden{display:none;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .heart{color:#ff5c8a;font-size:22px;margin:10px 0;}
+    .floating-heart{
+      position:fixed;top:-10px;font-size:20px;color:#ff5c8a;
+      opacity:0.8;animation:fall 5s linear forwards;
+    }
+    @keyframes fall{
+      0%{transform:translateY(0) scale(1);opacity:0.9;}
+      100%{transform:translateY(110vh) scale(0.8);opacity:0;}
+    }
+    .love-note{
+      margin-top:20px;font-size:17px;color:#ff5c8a;opacity:0;
+      animation:fadeInNote 2s ease forwards;
+      animation-delay:2s;font-style:italic;
+    }
+    @keyframes fadeInNote{to{opacity:1;}}
+    #musicBtn{
+      margin-top:18px;background:#fff;border:2px solid #ff5c8a;
+      color:#ff5c8a;font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="lock">
+    <h1>sorry kangen</h1>
+    <p>isi kapan pertama kali kita jalan :</p>
+    <input type="text" id="dateInput" placeholder="day/month/year" />
+    <br>
+    <button onclick="unlock()">pencet nabila</button>
+    <p id="error" style="color:red;display:none;margin-top:10px;">salah cantik, pake garis miring</p>
+  </div>
+
+  <div class="container hidden" id="content">
+    <h1>for my nabila</h1>
+    <div class="heart">❤</div>
+    <p style="font-size:16px;line-height:1.6;color:#704050;">
+      hai ila, bt paleng kangen...
+      <br><br>— vio
+    </p>
+    <p class="love-note">ikan sepat ikan bakar, kangen</p>
+    <button id="musicBtn" class="hidden" onclick="playMusic()">🔊 Putar Musik</button>
+  </div>
+
+  <audio id="bgMusic" src="bg.mp3"></audio>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function unlock(){
+      const input = document.getElementById('dateInput').value.trim();
+      const error = document.getElementById('error');
+
+      if(input === '18/08/2025'){
+        document.getElementById('lock').classList.add('hidden');
+        document.getElementById('content').classList.remove('hidden');
+        error.style.display = 'none';
+
+        music.volume = 0.5;
+        music.play().catch(()=>{
+          musicBtn.classList.remove('hidden');
+        });
+
+        startHearts();
+      } else {
+        error.style.display = 'block';
+      }
+    }
+
+    function playMusic(){
+      music.play();
+      musicBtn.classList.add('hidden');
+    }
+
+    function startHearts(){
+      setInterval(()=>{
+        const heart = document.createElement('div');
+        heart.textContent = '❤';
+        heart.classList.add('floating-heart');
+        heart.style.left = Math.random()*100 + 'vw';
+        heart.style.fontSize = Math.random()*15 + 15 + 'px';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+      },300);
+    }
+  </script>
+</body>
+</html>
